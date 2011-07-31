@@ -1,0 +1,17 @@
+<% @terms.sort {|a,b| a.label <=> b.label}.each do |term| %>
+<% uid = "#{@ontology.id}_#{term.id}".gsub(/[^A-Za-z0-9\-\_\.\:]/,"_") %>
+<li>
+	<% if term.child_count > 0 %>
+		<%= link_to "+", "#", :onclick => remote_function(
+                                     :update => "ul_#{uid}",
+                                     :url => { :action => 'get_terms'},
+                                     :with => "'oid=#{@ontology.id}&tid=#{term.id}'") %>
+	<% end %>
+	<%= link_to "#{term.label}", "#", :onclick => remote_function(
+                                     :update => "bioportal_content",
+                                     :url => { :action => 'get_term_details'},
+                                     :with => "'oid=#{@ontology.id}&tid=#{term.id}'"), 
+								:title => "id:#{term.id}" %>
+	<ul id="<%= "ul_#{uid}" %>"></ul>
+</li>
+<% end %>

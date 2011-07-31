@@ -1,0 +1,37 @@
+<h2><%= @term.label %></h2>
+<dl>
+<% 
+@term.relations.each do |key, value| 
+	if key !~ /ChildCount|SubClass/ %>
+		<dt><%= "#{key}:"%></dt>
+		<dd><pre><%= value.to_s.gsub(/^\s{8,8}/,'') %></pre></dd>
+<%	end 
+end 
+%>
+
+
+<%= render :partial => "definition", :locals => {:my_title => "Full ID", :my_value => link_to(@term.full_id, @term.full_id, :target => "_blank") } %>
+<%= render :partial => "definition", :locals => {:my_title => "Alt ID", :my_value => @term.alt_id } %>
+<%= render :partial => "definition", :locals => {:my_title => "Definition", :my_value => @term.definition } %>
+<%= render :partial => "definition", :locals => {:my_title => "XML URL", :my_value => link_to(@term.xml_url, @term.xml_url, :target => "_blank") } %>
+<%= render :partial => "definition", :locals => {:my_title => "Comment", :my_value => @term.comment } %>
+<%= render :partial => "definition", :locals => {:my_title => "XRef", :my_value => @term.xref } %>
+<%= render :partial => "definition", :locals => {:my_title => "Subset", :my_value =>  @term.subset.join(", ") } %>
+
+<% @term.synonyms.each do |key, value| %>
+<%= render :partial => "definition", :locals => {:my_title => "#{key}_synonym", :my_value => value}%>
+<% end %>
+
+<%= render :partial => "definition_terms", :locals => {:my_title => "part_of", :my_terms => @term.part_of } %>
+<%= render :partial => "definition_terms", :locals => {:my_title => "is_a", :my_terms => @term.is_a } %>
+<%= render :partial => "definition_terms", :locals => {:my_title => "[R]is_a", :my_terms => @term.r_is_a} %>
+<%= render :partial => "definition_terms", :locals => {:my_title => "SuperClass", :my_terms => @term.super_class} %>
+<%= render :partial => "definition_terms", :locals => {:my_title => "disjoint_from", :my_terms => @term.disjoint_from} %>
+<%= render :partial => "definition_terms", :locals => {:my_title => "[R]disjoing_from", :my_terms => @term.r_disjoint_from} %>
+
+<% @term.regulates.each do |key, value| %>
+<%= render :partial => "definition_terms", :locals => {:my_title => "#{key} regulates", :my_terms => value}%>
+<% end %>
+
+
+</dl>

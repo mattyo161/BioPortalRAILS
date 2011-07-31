@@ -1,0 +1,20 @@
+<h1>Welcome to BioPortal 2011.07.17</h1>
+
+<div id="bioportal_viewer">
+<!-- 	<%= link_to "Use Staging Server", {:action => "use_staging_server"} %> -->
+	<div id="bioportal_menu">
+		Select Ontology: 
+		<select id="bioportal_ontology" onChange="<%= remote_function(
+                                     :update => 'bioportal_terms',
+                                     :url => { :action => 'get_ontology'},
+                                     :with => "'oid='+value") %>">
+			<%= options_for_select [['',0]] + @ontologies.collect {|o| ["#{o.label} (#{o.abbreviation})", o.id]} %>
+		</select>
+	</div>
+	<div id="bioportal_nav">
+		<div id="bioportal_terms">
+		</div>
+	</div>
+	<div id="bioportal_content">
+	</div>
+</div>

@@ -1,0 +1,9 @@
+<% if my_terms and my_terms.size > 0 %>
+<dt><%= my_title %>:</dt>
+<dd>
+<ul>
+<% @terms = my_terms %>
+<%= render :partial => "get_terms" %>
+</ul>
+</dd>
+<% end %>
